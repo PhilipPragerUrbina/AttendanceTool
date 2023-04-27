@@ -22,7 +22,7 @@ public class CSV implements AutoCloseable{
         //Verify filepath type is csv
         JFileChooser chooser = new JFileChooser();
         if(!chooser.getTypeDescription(file).equals("Microsoft Excel Comma Separated Values File")){
-            throw new FileNotFoundException("Not csv file type: " + filepath);
+            //throw new FileNotFoundException("Not csv file type: " + filepath);
         }
         //Create scanner and verify that file exists
         scanner = new Scanner(file);
@@ -38,9 +38,8 @@ public class CSV implements AutoCloseable{
             return null;
         }
         String next_line = scanner.nextLine(); //Get the next line
-        //todo add Quotes support
         //parse line
-        String[] split_line = next_line.split(",");
+        String[] split_line = next_line.split("\"?,\"?(?=[^\"]*([,\n]|\\z))"); //Ignore within quotes
         if(num_fields != -1 &&  split_line.length != num_fields){ //check if # of fields matches last record
             throw new IllegalArgumentException("CSV format error: Different number of fields in each record");
         }

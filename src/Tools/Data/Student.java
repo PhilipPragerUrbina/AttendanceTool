@@ -1,8 +1,5 @@
 package Tools.Data;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a single student and associated data
@@ -30,14 +27,34 @@ public class Student {
 
     /**
      * Get all courses the student has with a given teacher
+     * Uses a fuzzy search
      * @param teacher_name Name of teacher
      */
     public ArrayList<Course> hasTeacher(String teacher_name){
         ArrayList<Course> selected_courses = new ArrayList<>();
         for (Course course: courses) {
-            if(course.getTeacher().equals(teacher_name)) selected_courses.add(course);
+            if(fuzzyCompare(teacher_name, course.getTeacher())) selected_courses.add(course);
         }
         return selected_courses;
+    }
+
+
+    /**
+     * Provides a smarter comparison that can help prevent mistakes from messing up search
+     * Does not care about case
+     * Query is split into keywords by common delimiters. This means mistakes in ordering or spacing will not affect outcome.
+     * @param query Usually what the user enters.
+     * @param target What to compare to.
+     * @return True if all keywords are present in target.
+     */
+    private static boolean fuzzyCompare(String query, String target){
+        target = target.toLowerCase();
+        query = query.toLowerCase();
+        String[] query_terms = query.split("[,\\s:.]");
+        for (String term: query_terms) {
+            if(!target.contains(term)) return false;
+        }
+        return true;
     }
 
     public int getStudent_id() {

@@ -1,4 +1,7 @@
 ID,LN,FN,COURSE,TEACHER, BLOCK
 0,Trump,Donald,Politics,Dober,1
-1,Biden,Joe,Politics,Dober,1
-1,Biden,Joe,Cooking,John,2
+1,Biden,Joe,World Lit/Writ,"Obama, Barrack",6
+1,Biden,Joe,AP Microeconomics,Mr.John,2
+2,Potter,Harry,AP Microeconomics,Mr. Beast,5
+2,Potter,Harry,World Lit/Writ,"Obama, Barrack",6
+3,Washington,George,Politics,Dober,1

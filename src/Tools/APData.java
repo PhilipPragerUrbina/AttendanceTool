@@ -32,11 +32,11 @@ public class APData {
         while(true){
             String[] line = data_file.getNextRecord();
             if(line == null) break;
-            int student_id = Integer.parseInt(line[0]);
+            int student_id = Integer.parseInt(line[0].trim());
             if(!students.containsKey(student_id)){ //Add student if they do not exist yet in the database
-                students.put(student_id, new Student(student_id, line[2], line[1]) );
+                students.put(student_id, new Student(student_id, line[2].trim(), line[1].trim()) );
             }
-            students.get(student_id).addCourse(new Course(line[4], line[3], Integer.parseInt(line[5]))); //Add course to student
+            students.get(student_id).addCourse(new Course(line[4].trim(), line[3].trim(), Integer.parseInt(line[5].trim()))); //Add course to student
         }
 
         first_line = timings_file.getNextRecord();
@@ -44,8 +44,9 @@ public class APData {
         while(true){
             String[] line = timings_file.getNextRecord();
             if(line == null) break;
-           tests.add(new Test(Integer.parseInt(line[2]), line[1], line[0]));
+           tests.add(new Test(Integer.parseInt(line[2].trim()), line[1].trim(), line[0].trim()));
         }
+
     }
 
     /**
