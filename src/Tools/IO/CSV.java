@@ -31,7 +31,7 @@ public class CSV implements AutoCloseable{
     /**
      * Read the next record(line) from the csv file
      * @return The fields from the records, or null if no more lines left
-     * @throws Exception CSV does not have a valid format
+     * @throws IllegalArgumentException CSV does not have a valid format
      */
     public  String[] getNextRecord() throws IllegalArgumentException{
         if(!scanner.hasNextLine()){ //Check if next line exists

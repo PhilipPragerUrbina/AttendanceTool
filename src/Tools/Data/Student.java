@@ -5,10 +5,10 @@ import java.util.*;
  * Represents a single student and associated data
  */
 public class Student {
-    private int student_id;
-    private String first_name;
-    private String last_name;
-    private Set<Course> courses;
+    private final int student_id;
+    private final String first_name;
+    private final String last_name;
+    private final Set<Course> courses;
 
     public Student(int student_id, String first_name, String last_name) {
         this.student_id = student_id;
@@ -26,7 +26,7 @@ public class Student {
     }
 
     //Terms to ignore for naming
-    final ArrayList<String> ignored_terms = new ArrayList<String>(List.of(new String[]{"mrs", "ms", "mr", "dr"}));
+    static final ArrayList<String> ignored_terms = new ArrayList<>(List.of(new String[]{"mrs", "ms", "mr", "dr"}));
 
     /**
      * Get all courses the student has with a given teacher
@@ -36,7 +36,7 @@ public class Student {
     public ArrayList<Course> hasTeacher(String teacher_name){
         ArrayList<Course> selected_courses = new ArrayList<>();
         for (Course course: courses) {
-            if(fuzzyCompare(teacher_name, course.getTeacher(), ignored_terms) || fuzzyCompare(course.getTeacher(), teacher_name,ignored_terms)) selected_courses.add(course);
+            if(fuzzyCompare(teacher_name, course.getTeacher()) || fuzzyCompare(course.getTeacher(), teacher_name)) selected_courses.add(course);
         }
         return selected_courses;
     }
@@ -48,15 +48,14 @@ public class Student {
      * Query is split into keywords by common delimiters. This means mistakes in ordering or spacing will not affect outcome.
      * @param query Usually what the user enters.
      * @param target What to compare to.
-     * @param ignored_terms Terms to ignore in lower case
      * @return True if all keywords are present in target.
      */
-    private static boolean fuzzyCompare(String query, String target, List<String> ignored_terms){
+    private static boolean fuzzyCompare(String query, String target){
         target = target.toLowerCase();
         query = query.toLowerCase();
         String[] query_terms = query.split("[,\\s:./&]");
         for (String term: query_terms) {
-            if(ignored_terms.contains(term)) continue;
+            if(Student.ignored_terms.contains(term)) continue;
             if(!target.contains(term)) return false;
         }
         return true;
