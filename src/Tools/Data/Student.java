@@ -50,7 +50,7 @@ public class Student {
     private static boolean fuzzyCompare(String query, String target){
         target = target.toLowerCase();
         query = query.toLowerCase();
-        String[] query_terms = query.split("[,\\s:.]");
+        String[] query_terms = query.split("[,\\s:./&]");
         for (String term: query_terms) {
             if(!target.contains(term)) return false;
         }
