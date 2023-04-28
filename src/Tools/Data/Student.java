@@ -33,7 +33,7 @@ public class Student {
     public ArrayList<Course> hasTeacher(String teacher_name){
         ArrayList<Course> selected_courses = new ArrayList<>();
         for (Course course: courses) {
-            if(fuzzyCompare(teacher_name, course.getTeacher())) selected_courses.add(course);
+            if(fuzzyCompare(teacher_name, course.getTeacher()) || fuzzyCompare(course.getTeacher(), teacher_name)) selected_courses.add(course);
         }
         return selected_courses;
     }
