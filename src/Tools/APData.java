@@ -36,6 +36,7 @@ public class APData {
             if(!students.containsKey(student_id)){ //Add student if they do not exist yet in the database
                 students.put(student_id, new Student(student_id, line[2].trim(), line[1].trim()) );
             }
+            if(!line[5].matches("\\d+")) continue; //Block not specified in numeric way
             students.get(student_id).addCourse(new Course(line[4].trim(), line[3].trim(), Integer.parseInt(line[5].trim()))); //Add course to student
         }
 
